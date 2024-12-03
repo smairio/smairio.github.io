@@ -4,14 +4,14 @@ users:
   password_expire_days: 6000
   job: developer
 - name: jawher
-  uid: 1012
+  uid: 1013
   password_expire_days: 6000
   job: manager
 - name: shiheb
-  uid: 1012
+  uid: 1014
   password_expire_days: 6000
   job: developer
 - name: malak
-  uid: 1012
+  uid: 1015
   password_expire_days: 6000
   job: manager
