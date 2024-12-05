@@ -1,5 +1,6 @@
-HOST=node01
-MEMORY=8192
-BIOS=2.5.0
-SDA_DISK_SIZE=500GB
-SDB_DISK_SIZE=1TB
+HOST= inventory hostname
+MEMORY=total memory in mb
+BIOS=bios version
+VDA_DISK_SIZE=disk size
+VDB_DISK_SIZE=disk size
+VDC_DISK_SIZE=disk size
