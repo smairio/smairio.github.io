@@ -10,8 +10,4 @@ users:
 - name: shiheb
   uid: 1014
   password_expire_days: 6000
-  job: developer
-- name: malak
-  uid: 1015
-  password_expire_days: 6000
-  job: manager
+  job: tester
