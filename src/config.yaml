@@ -1,34 +1,33 @@
 site:
-  name: AstroWind
+  name: LamdaSoft
   site: 'https://smairio.github.io'
   base: '/'
   trailingSlash: false
 
-  googleSiteVerificationId: orcPxI47GSa-cRvY11tUe6iGg2IO_RPvnA1q95iEM3M
+  googleSiteVerificationId: '' # TODO: add once the Search Console property is claimed
 
 # Default SEO metadata
 metadata:
   title:
-    default: AstroWind
-    template: '%s — AstroWind'
-  description: "\U0001F680 Suitable for Startups, Small Business, Sass Websites, Professional Portfolios, Marketing Websites, Landing Pages & Blogs."
+    default: 'LamdaSoft — Digitalisez votre entreprise'
+    template: '%s — LamdaSoft'
+  description: 'LamdaSoft accompagne les entreprises tunisiennes dans leur passage au numérique : sites web, applications mobiles, outils de gestion sur mesure, automatisation et hébergement cloud.'
   robots:
     index: true
     follow: true
   openGraph:
-    site_name: AstroWind
+    site_name: LamdaSoft
     images:
+      # TODO: replace with a LamdaSoft social preview image (1200x628)
       - url: '~/assets/images/default.png'
         width: 1200
         height: 628
     type: website
   twitter:
-    handle: '@arthelokyo'
-    site: '@arthelokyo'
     cardType: summary_large_image
 
 i18n:
-  language: en
+  language: fr
   textDirection: ltr
 
 apps:

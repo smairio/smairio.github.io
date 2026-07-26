@@ -1,10 +1,37 @@
-# AstroWind Agent Instructions
+# LamdaSoft Agent Instructions
 
 ## Project Overview
 
-AstroWind is a free, open-source website template built with **Astro v6** and **Tailwind CSS v4**. It generates a fully static site optimized for performance, SEO, and accessibility.
+The public website of **LamdaSoft**, a Tunisian agency selling web, mobile and
+digitalisation work to small and medium businesses. Built on the
+[AstroWind](https://github.com/onwidget/astrowind) template (MIT).
 
 **Stack:** Astro v6 | Tailwind CSS v4 | TypeScript 5.9 | MDX | Sharp
+
+Deployed to GitHub Pages on every push to `main` (`.github/workflows/actions.yaml`).
+
+## Non-negotiable content rules
+
+The agency is new and has no clients yet, so **trust is the site's scarcest
+resource** — in small Tunisian cities one caught exaggeration ends a reputation.
+These rules are product requirements, not style preferences:
+
+1. **Never invent proof.** No client names, logos, testimonials, project counts,
+   years-in-business, team sizes, or ratings. If a number or name isn't real,
+   it doesn't ship — leave a visible `TODO` instead.
+2. **Demos are labelled as demos.** Portfolio items say
+   « Projet de démonstration ». Never imply a demo was paid client work.
+3. **No compliance or certification claims.** For hosting, the approved wording
+   is « Déploiement cloud, avec option d'hébergement de vos données en Tunisie ».
+   Do not write « conforme », INPDP, or any certification the agency lacks.
+4. **French only.** Arabic and English come later; don't add locales unprompted.
+5. **Services stay generic.** Describe capabilities, never name a target
+   business type (no "pour avocats", "pour agences de location").
+6. **WhatsApp is the only conversion path.** Every CTA opens `wa.me`. No contact
+   forms. Numbers and addresses live in `src/contact.ts` — nowhere else.
+
+Business strategy behind these rules (niches, sales scripts, pricing) lives
+outside this repo in `plans/first-client-plan.md`.
 
 ## Quick Reference
 
