@@ -1,6 +1,0 @@
-HOST= inventory hostname
-MEMORY=total memory in mb
-BIOS=bios version
-VDA_DISK_SIZE=disk size
-VDB_DISK_SIZE=disk size
-VDC_DISK_SIZE=disk size
