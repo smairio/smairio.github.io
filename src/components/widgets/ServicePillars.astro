@@ -1,0 +1,75 @@
+---
+import { Icon } from 'astro-icon/components';
+
+import Button from '~/components/ui/Button.astro';
+import Headline from '~/components/ui/Headline.astro';
+import WidgetWrapper from '~/components/ui/WidgetWrapper.astro';
+
+import type { CallToAction, Widget } from '~/types';
+
+export interface Pillar {
+  title: string;
+  icon?: string;
+  /** Two or three short capability lines. Keep them generic — never name a target business type. */
+  items: Array<string>;
+  /**
+   * What the visitor pays. Only quote a figure the agency can honour today;
+   * « sur devis » everywhere a real starting price can't be given yet.
+   */
+  price: string;
+  callToAction: CallToAction;
+}
+
+export interface Props extends Widget {
+  title?: string;
+  subtitle?: string;
+  tagline?: string;
+  pillars?: Array<Pillar>;
+}
+
+const {
+  title = await Astro.slots.render('title'),
+  subtitle = await Astro.slots.render('subtitle'),
+  tagline,
+  pillars = [],
+
+  id,
+  isDark = false,
+  classes = {},
+  bg = await Astro.slots.render('bg'),
+} = Astro.props;
+---
+
+<WidgetWrapper id={id} isDark={isDark} containerClass={`max-w-6xl ${classes?.container ?? ''}`} bg={bg}>
+  <Headline title={title} subtitle={subtitle} tagline={tagline} />
+
+  {
+    pillars.length > 0 && (
+      <div class="grid gap-6 sm:grid-cols-2">
+        {pillars.map(({ title: pillarTitle, icon, items, price, callToAction }) => (
+          <div class="flex h-full flex-col rounded-lg border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-700 dark:bg-slate-900 intersect-once motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade">
+            <div class="flex items-center gap-3">
+              {icon && <Icon name={icon} class="h-10 w-10 shrink-0 rounded-full bg-primary p-2 text-white" />}
+              <h3 class="text-lg font-bold leading-tight md:text-xl">{pillarTitle}</h3>
+            </div>
+
+            <ul class="mt-4 space-y-2 text-muted">
+              {items.map((item) => (
+                <li class="flex items-start gap-2">
+                  <Icon name="tabler:check" class="mt-1 h-4 w-4 shrink-0 text-primary" />
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+
+            <p class="mt-5 font-semibold text-heading dark:text-white">{price}</p>
+
+            <div class="mt-4">
+              <Button variant="link" {...callToAction} />
+            </div>
+          </div>
+        ))}
+      </div>
+    )
+  }
+</WidgetWrapper>

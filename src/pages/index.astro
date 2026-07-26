@@ -2,8 +2,18 @@
 import Layout from '~/layouts/PageLayout.astro';
 
 import Hero from '~/components/widgets/Hero.astro';
+import ServicePillars from '~/components/widgets/ServicePillars.astro';
 
 import { whatsappLink } from '~/contact';
+
+/** One WhatsApp opener per pillar, so an incoming message says which one it came from. */
+const pillarCta = (subject: string) => ({
+  variant: 'link' as const,
+  text: 'En parler sur WhatsApp',
+  href: whatsappLink(`Bonjour, je m'intéresse à : ${subject}.`),
+  target: '_blank',
+  icon: 'tabler:brand-whatsapp',
+});
 
 const metadata = {
   title: 'LamdaSoft — Digitalisez votre entreprise',
@@ -32,7 +42,59 @@ const metadata = {
     </Fragment>
   </Hero>
 
-  <!-- TODO(#4): section services — les 4 piliers (id="services") -->
+  <ServicePillars
+    id="services"
+    tagline="Services"
+    title="Ce que nous construisons"
+    subtitle="Quatre domaines. On commence par le plus urgent pour vous, et on étend ensuite."
+    pillars={[
+      {
+        title: 'Sites web & applications mobiles',
+        icon: 'tabler:devices',
+        items: [
+          'Site vitrine ou boutique en ligne, rapide et visible sur Google',
+          'Application mobile Android et iPhone',
+          'Prise de rendez-vous et réservation en ligne',
+        ],
+        price: 'À partir de 500 TND',
+        callToAction: pillarCta('un site web ou une application mobile'),
+      },
+      {
+        title: 'Outils de gestion sur mesure',
+        icon: 'tabler:layout-dashboard',
+        items: [
+          'Tableau de bord : votre activité en un coup d’œil',
+          'CRM : clients, devis et relances au même endroit',
+          'ERP : stock, facturation et personnel',
+        ],
+        price: 'Sur devis',
+        callToAction: pillarCta('un outil de gestion sur mesure'),
+      },
+      {
+        title: 'Digitalisation & IA',
+        icon: 'tabler:scan',
+        items: [
+          'Vos registres et dossiers papier deviennent des fichiers consultables',
+          'Scan intelligent : une photo d’un document, les données en sortent',
+          'Génération automatique de vos devis, contrats et factures',
+        ],
+        price: 'Sur devis',
+        callToAction: pillarCta('la digitalisation de mes documents'),
+      },
+      {
+        title: 'Cloud & hébergement',
+        icon: 'tabler:cloud',
+        items: [
+          'Déploiement cloud, avec option d’hébergement de vos données en Tunisie',
+          'Sauvegardes automatiques et restauration',
+          'Mise en ligne, surveillance et mises à jour',
+        ],
+        price: 'Sur devis',
+        callToAction: pillarCta('l’hébergement et le cloud'),
+      },
+    ]}
+  />
+
   <!-- TODO(#5): section réalisations — démonstrations (id="realisations") -->
   <!-- TODO(#6): section confiance — garanties (id="confiance") -->
 </Layout>
