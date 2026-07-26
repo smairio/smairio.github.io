@@ -18,7 +18,7 @@ metadata:
   openGraph:
     site_name: LamdaSoft
     images:
-      # TODO: replace with a LamdaSoft social preview image (1200x628)
+      # Generated from default.svg — see `npm run og:image`
       - url: '~/assets/images/default.png'
         width: 1200
         height: 628

@@ -3,6 +3,8 @@ import Layout from '~/layouts/PageLayout.astro';
 
 import Hero from '~/components/widgets/Hero.astro';
 
+import { whatsappLink } from '~/contact';
+
 const metadata = {
   title: 'LamdaSoft — Digitalisez votre entreprise',
   ignoreTitleTemplate: true,
@@ -10,12 +12,26 @@ const metadata = {
 ---
 
 <Layout metadata={metadata}>
-  <Hero>
+  <Hero
+    actions={[
+      {
+        variant: 'primary',
+        text: 'Discuter sur WhatsApp',
+        href: whatsappLink('Bonjour, je souhaite digitaliser mon entreprise.'),
+        target: '_blank',
+        icon: 'tabler:brand-whatsapp',
+      },
+      { text: 'Voir nos services', href: '#services' },
+    ]}
+  >
     <Fragment slot="title">Digitalisez votre entreprise</Fragment>
-    <Fragment slot="subtitle"> Nous faisons passer votre activité du papier et du téléphone au numérique. </Fragment>
+
+    <Fragment slot="subtitle">
+      Vos rendez-vous sur un carnet, vos dossiers dans des classeurs, vos devis perdus dans WhatsApp. Nous remplaçons
+      tout ça par des outils simples, faits pour votre activité.
+    </Fragment>
   </Hero>
 
-  <!-- TODO(#3): actions WhatsApp + visuel du hero -->
   <!-- TODO(#4): section services — les 4 piliers (id="services") -->
   <!-- TODO(#5): section réalisations — démonstrations (id="realisations") -->
   <!-- TODO(#6): section confiance — garanties (id="confiance") -->

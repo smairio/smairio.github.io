@@ -12,6 +12,12 @@ export const headerData: { links: Array<{ text: string; href: string }>; actions
   ],
   actions: [
     {
+      variant: 'tertiary',
+      text: CONTACT.phoneDisplay,
+      href: `tel:${CONTACT.phone}`,
+      icon: 'tabler:phone',
+    },
+    {
       variant: 'primary',
       text: 'WhatsApp',
       href: whatsappLink(WHATSAPP_DEFAULT_MESSAGE),
