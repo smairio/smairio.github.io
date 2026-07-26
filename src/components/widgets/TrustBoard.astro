@@ -1,0 +1,57 @@
+---
+/**
+ * « Nos engagements » : the painted trust board. Four written guarantees as
+ * lettered lines on one plaster board — the young-agency honesty stated
+ * out loud above them. No icons standing in for content: the paint itself
+ * (numbered plates, red rules) carries the hierarchy.
+ */
+export interface Engagement {
+  title: string;
+  description: string;
+}
+
+export interface Props {
+  id?: string;
+  title: string;
+  lead?: string;
+  engagements: Array<Engagement>;
+}
+
+const { id, title, lead, engagements = [] } = Astro.props;
+---
+
+<section class="relative not-prose scroll-mt-[72px] grain" {...id ? { id } : {}}>
+  <div class="relative max-w-4xl mx-auto px-5 sm:px-8 py-14 md:py-20">
+    <div class="text-center">
+      <div class="relative">
+        <div class="absolute inset-x-0 top-1/2 h-[2px] bg-ink/60" aria-hidden="true"></div>
+        <h2 class="plaque relative px-5 py-2.5 text-lg md:text-xl">{title}</h2>
+      </div>
+      {lead && <p class="mt-5 text-default text-lg max-w-2xl mx-auto text-balance">{lead}</p>}
+    </div>
+
+    <div class="filet mt-10 bg-plaster">
+      {
+        engagements.map(({ title: engagementTitle, description }, index) => (
+          <div
+            class:list={[
+              'flex gap-4 sm:gap-6 px-5 sm:px-8 py-6 sm:py-7 intersect-once intersect-quarter motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade',
+              { 'border-t-2 border-dashed border-ink/25': index > 0 },
+            ]}
+          >
+            <p
+              class="plaque self-start shrink-0 w-9 h-9 !flex items-center justify-center text-base"
+              aria-hidden="true"
+            >
+              {index + 1}
+            </p>
+            <div>
+              <h3 class="font-heading text-lg md:text-xl leading-snug">{engagementTitle}</h3>
+              <p class="mt-1.5 text-muted max-w-[65ch]">{description}</p>
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>

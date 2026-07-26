@@ -1,63 +1,40 @@
 ---
-import '@fontsource-variable/inter';
-
-// 'DM Sans'
-// Nunito
-// Dosis
-// Outfit
-// Roboto
-// Literata
-// 'IBM Plex Sans'
-// Karla
-// Poppins
-// 'Fira Sans'
-// 'Libre Franklin'
-// Inconsolata
-// Raleway
-// Oswald
-// 'Space Grotesk'
-// Urbanist
+// The two sign-painting faces of « la devanture peinte » (see DESIGN.md).
+// Archivo Black letters the signs; Archivo Variable does the talking.
+// Subsets ship with unicode-range, so French (incl. œ) costs two woff2 files.
+import '@fontsource/archivo-black';
+import '@fontsource-variable/archivo/wght.css';
 ---
 
 <style is:inline>
   :root {
-    --aw-font-sans: 'Inter Variable';
-    --aw-font-serif: 'Inter Variable';
-    --aw-font-heading: 'Inter Variable';
+    --aw-font-sans: 'Archivo Variable', system-ui, sans-serif;
+    --aw-font-serif: 'Archivo Variable', system-ui, sans-serif;
+    --aw-font-heading: 'Archivo Black', 'Archivo Variable', system-ui, sans-serif;
 
-    --aw-color-primary: rgb(1 97 239);
-    --aw-color-secondary: rgb(1 84 207);
-    --aw-color-accent: rgb(109 40 217);
+    /* Enamel sign paints — roles documented in DESIGN.md. */
+    --aw-color-primary: #0e4b38; /* enamel green: the carrying colour */
+    --aw-color-secondary: #093726; /* deep green: hover/pressed */
+    --aw-color-accent: #e9a820; /* ochre: price plates & CTA only */
 
-    --aw-color-text-heading: rgb(0 0 0);
-    --aw-color-text-default: rgb(16 16 16);
-    --aw-color-text-muted: rgb(16 16 16 / 66%);
-    --aw-color-bg-page: rgb(255 255 255);
+    --paint-red: #b93a1d; /* signal red: sparse accents on plaster */
+    --paint-plaster: #f4eee1; /* the wall */
+    --paint-ink: #231f17;
+    --paint-on-green: #d8e4dc; /* secondary text on green — tinted, never gray */
 
-    --aw-color-bg-page-dark: rgb(3 6 32);
+    --aw-color-text-heading: var(--paint-ink);
+    --aw-color-text-default: var(--paint-ink);
+    --aw-color-text-muted: color-mix(in oklab, var(--paint-ink) 68%, var(--paint-plaster));
+    --aw-color-bg-page: var(--paint-plaster);
 
-    ::selection {
-      background-color: lavender;
-    }
-  }
+    --aw-color-bg-page-dark: var(--paint-plaster);
 
-  .dark {
-    --aw-font-sans: 'Inter Variable';
-    --aw-font-serif: 'Inter Variable';
-    --aw-font-heading: 'Inter Variable';
-
-    --aw-color-primary: rgb(1 97 239);
-    --aw-color-secondary: rgb(1 84 207);
-    --aw-color-accent: rgb(109 40 217);
-
-    --aw-color-text-heading: rgb(247, 248, 248);
-    --aw-color-text-default: rgb(229 236 246);
-    --aw-color-text-muted: rgb(229 236 246 / 66%);
-    --aw-color-bg-page: rgb(3 6 32);
+    /* One easing for the whole shop. */
+    --paint-ease: cubic-bezier(0.22, 1, 0.36, 1);
 
     ::selection {
-      background-color: black;
-      color: snow;
+      background-color: var(--aw-color-accent);
+      color: var(--paint-ink);
     }
   }
 </style>

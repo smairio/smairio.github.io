@@ -1,182 +1,177 @@
 ---
+/*
+ * DIRECTION CONTRACT — « La devanture peinte » (seed 0570d39e, assigned
+ * grounded direction 3/7, user-confirmed; staging = the storefront itself).
+ *
+ * THESIS: the site IS what LamdaSoft sells — a proper painted storefront for
+ * businesses that only have a Facebook page. Refuses the SaaS-agency hero
+ * with icon-card grids.
+ * OWN-WORLD: enamel green #0E4B38 carrying 30–60%, plaster #F4EEE1 walls,
+ * ochre #E9A820 price plates, signal red #B93A1D accents, ink #231F17;
+ * Archivo Black sign lettering + Archivo body; filet borders, label plaques,
+ * offset block shadows, awning stripes, wall grain.
+ * STORY: an owner recognises their own street, reads the trade list, sees
+ * prices painted plainly, honest « En construction » vitrines and a written
+ * guarantee — and taps the ochre WhatsApp plate.
+ * FIRST VIEWPORT: the shop's main sign — plaque, DIGITALISEZ VOTRE COMMERCE
+ * in slab caps with ink offset, trade-list between drawn rules, one ochre
+ * CTA plate + painted phone number.
+ * FORM: painted price board, street of mini-vitrines, duotoned real street,
+ * engagements board, green shutter footer with the number lettered big.
+ */
 import Layout from '~/layouts/PageLayout.astro';
 
 import Button from '~/components/ui/Button.astro';
-import CallToAction from '~/components/widgets/CallToAction.astro';
 import DemoGallery from '~/components/widgets/DemoGallery.astro';
-import Features from '~/components/widgets/Features.astro';
-import Hero from '~/components/widgets/Hero.astro';
-import ServicePillars from '~/components/widgets/ServicePillars.astro';
-import Testimonials from '~/components/widgets/Testimonials.astro';
+import PriceBoard from '~/components/widgets/PriceBoard.astro';
+import SignHero from '~/components/widgets/SignHero.astro';
+import StreetBand from '~/components/widgets/StreetBand.astro';
+import TrustBoard from '~/components/widgets/TrustBoard.astro';
 
 import { CONTACT, WHATSAPP_DEFAULT_MESSAGE, telLink, whatsappLink } from '~/contact';
 import { demos } from '~/data/demos';
 
-/** One WhatsApp opener per pillar, so an incoming message says which one it came from. */
-const pillarCta = (subject: string) => ({
+/** One WhatsApp opener per service, so an incoming message says which one it came from. */
+const serviceCta = (subject: string) => ({
   text: 'En parler sur WhatsApp',
   href: whatsappLink(`Bonjour, je m'intéresse à : ${subject}.`),
-  target: '_blank',
-  icon: 'tabler:brand-whatsapp',
 });
 
 const metadata = {
-  title: 'LamdaSoft — Digitalisez votre entreprise',
+  title: 'LamdaSoft — Digitalisez votre commerce',
   ignoreTitleTemplate: true,
 };
 ---
 
 <Layout metadata={metadata}>
-  <Hero
-    actions={[
-      {
-        variant: 'primary',
-        text: 'Discuter sur WhatsApp',
-        href: whatsappLink(WHATSAPP_DEFAULT_MESSAGE),
-        target: '_blank',
-        icon: 'tabler:brand-whatsapp',
-      },
-      { text: 'Voir nos services', href: '#services' },
-    ]}
-  >
-    <Fragment slot="title">Digitalisez votre entreprise</Fragment>
+  <SignHero />
 
-    <Fragment slot="subtitle">
-      Vos rendez-vous sur un carnet, vos dossiers dans des classeurs, vos devis perdus dans WhatsApp. Nous remplaçons
-      tout ça par des outils simples, faits pour votre activité.
-    </Fragment>
-  </Hero>
-
-  <ServicePillars
+  <PriceBoard
     id="services"
-    tagline="Services"
-    title="Ce que nous construisons"
-    subtitle="Quatre domaines. On commence par le plus urgent pour vous, et on étend ensuite."
-    pillars={[
+    title="Nos services"
+    subtitle="Quatre métiers, affichés comme sur l'ardoise : ce que c'est, ce que ça règle, ce que ça coûte."
+    services={[
       {
         title: 'Sites web & applications mobiles',
-        icon: 'tabler:devices',
         items: [
           'Site vitrine ou boutique en ligne, rapide et visible sur Google',
           'Application mobile Android et iPhone',
           'Prise de rendez-vous et réservation en ligne',
         ],
         price: 'À partir de 500 TND',
-        callToAction: pillarCta('un site web ou une application mobile'),
+        isStartingPrice: true,
+        callToAction: serviceCta('un site web ou une application mobile'),
       },
       {
         title: 'Outils de gestion sur mesure',
-        icon: 'tabler:layout-dashboard',
         items: [
           'Tableau de bord : votre activité en un coup d’œil',
           'CRM : clients, devis et relances au même endroit',
           'ERP : stock, facturation et personnel',
         ],
         price: 'Sur devis',
-        callToAction: pillarCta('un outil de gestion sur mesure'),
+        callToAction: serviceCta('un outil de gestion sur mesure'),
       },
       {
         title: 'Digitalisation & IA',
-        icon: 'tabler:scan',
         items: [
           'Vos registres et dossiers papier deviennent des fichiers consultables',
           'Scan intelligent : une photo d’un document, les données en sortent',
           'Génération automatique de vos devis, contrats et factures',
         ],
         price: 'Sur devis',
-        callToAction: pillarCta('la digitalisation de mes documents'),
+        callToAction: serviceCta('la digitalisation de mes documents'),
       },
       {
         title: 'Cloud & hébergement',
-        icon: 'tabler:cloud',
         items: [
           'Déploiement cloud, avec option d’hébergement de vos données en Tunisie',
           'Sauvegardes automatiques et restauration',
           'Mise en ligne, surveillance et mises à jour',
         ],
         price: 'Sur devis',
-        callToAction: pillarCta('l’hébergement et le cloud'),
+        callToAction: serviceCta('l’hébergement et le cloud'),
       },
     ]}
   />
+
+  <StreetBand claim="Votre commerce mérite mieux qu'une page Facebook." />
 
   <DemoGallery
     id="realisations"
-    tagline="Réalisations"
     title="Nos démonstrations"
-    subtitle="Nous construisons ces projets pour montrer concrètement ce que nous savons faire. Ce sont des démonstrations, pas des projets clients : nous ne présenterons jamais le travail d’un autre comme le nôtre."
+    subtitle="Nous construisons ces projets pour montrer ce que nous savons faire. Ce sont des démonstrations, pas des projets clients : nous ne présenterons jamais le travail d'un autre comme le nôtre."
     demos={demos}
   />
-  <!-- The anchor wraps the guarantees and their CTA, so #confiance lands on both. -->
-  <div id="confiance" class="scroll-mt-[72px]">
-    <Features
-      tagline="Confiance"
-      title="Le risque est de notre côté, pas du vôtre"
-      subtitle="Nous démarrons, et c’est justement pour ça que nous donnons le maximum : votre projet sera notre vitrine. Voilà ce que nous garantissons par écrit."
-      columns={2}
-      items={[
-        {
-          title: 'Vous ne réglez le solde que si le résultat vous convient',
-          description: 'La moitié à la commande, la moitié à la livraison — et seulement si le travail vous convient.',
-          icon: 'tabler:shield-check',
-        },
-        {
-          title: 'Un accord écrit avant de commencer',
-          description:
-            'Une page : ce qui est inclus, le prix, la date de livraison. Vous savez exactement ce que vous achetez.',
-          icon: 'tabler:writing-sign',
-        },
-        {
-          title: 'On commence petit',
-          description: 'Un premier projet simple, livré vite et bien. Vous jugez sur pièce avant d’aller plus loin.',
-          icon: 'tabler:stairs-up',
-        },
-        {
-          title: 'On reste joignables',
-          description: 'Sur WhatsApp, rapidement — pendant le projet comme après la livraison.',
-          icon: 'tabler:message-circle',
-        },
-      ]}
-    />
 
-    <div class="flex justify-center pb-12 md:pb-16 lg:pb-20">
-      <Button
-        variant="primary"
-        text="Discuter sur WhatsApp"
-        href={whatsappLink(WHATSAPP_DEFAULT_MESSAGE)}
-        target="_blank"
-        icon="tabler:brand-whatsapp"
-      />
-    </div>
-  </div>
-
-  <Testimonials
-    title="Avis clients — à venir"
-    subtitle="Nous venons de démarrer : cette section est vide. Les premiers avis seront publiés ici avec le nom de leurs auteurs et leur accord."
-    testimonials={[]}
-  />
-
-  <CallToAction
-    actions={[
+  <TrustBoard
+    id="confiance"
+    title="Nos engagements"
+    lead="Nous démarrons, et c'est justement pour ça que nous donnons le maximum : votre projet sera notre vitrine. Voilà ce que nous garantissons par écrit."
+    engagements={[
       {
-        variant: 'primary',
-        text: 'Discuter sur WhatsApp',
-        href: whatsappLink(WHATSAPP_DEFAULT_MESSAGE),
-        target: '_blank',
-        icon: 'tabler:brand-whatsapp',
+        title: 'Vous ne réglez le solde que si le résultat vous convient',
+        description: 'La moitié à la commande, la moitié à la livraison — et seulement si le travail vous convient.',
       },
       {
-        variant: 'tertiary',
-        text: CONTACT.phoneDisplay,
-        href: telLink(),
-        icon: 'tabler:phone',
+        title: 'Un accord écrit avant de commencer',
+        description:
+          'Une page : ce qui est inclus, le prix, la date de livraison. Vous savez exactement ce que vous achetez.',
+      },
+      {
+        title: 'On commence petit',
+        description: 'Un premier projet simple, livré vite et bien. Vous jugez sur pièce avant d’aller plus loin.',
+      },
+      {
+        title: 'On reste joignables',
+        description: 'Sur WhatsApp, rapidement — pendant le projet comme après la livraison.',
       },
     ]}
-  >
-    <Fragment slot="title">Parlons de votre projet</Fragment>
+  />
 
-    <Fragment slot="subtitle">
-      Dites-nous ce qui vous prend le plus de temps aujourd’hui. Nous revenons vers vous avec une proposition concrète.
-    </Fragment>
-  </CallToAction>
+  <!-- Avis clients : vide et dit pourquoi — l'honnêteté est la marque. -->
+  <section class="relative not-prose">
+    <div class="max-w-3xl mx-auto px-5 sm:px-8 pb-14 md:pb-20 text-center">
+      <div class="filet bg-plaster grain px-6 py-8">
+        <h2 class="font-heading uppercase text-lg tracking-wide text-muted">Avis clients — à venir</h2>
+        <p class="mt-3 text-muted text-balance">
+          Nous venons de démarrer : ce panneau est encore vide. Les premiers avis seront peints ici, avec le nom de
+          leurs auteurs et leur accord.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Le dernier panneau avant le rideau : un panneau encadré sur le mur, pas un second rideau. -->
+  <section class="relative not-prose grain">
+    <div class="max-w-4xl mx-auto px-5 sm:px-8 pb-16 md:pb-24">
+      <div class="panneau grain relative px-6 sm:px-10 py-12 md:py-16 text-center border-2 border-ink">
+        <h2
+          class="font-heading uppercase text-plaster leading-tight text-[clamp(1.9rem,5.5vw,3rem)] [text-shadow:0.05em_0.05em_0_var(--paint-ink)]"
+        >
+          Parlons de votre projet
+        </h2>
+        <p class="mt-5 text-on-green text-lg max-w-xl mx-auto text-balance">
+          Dites-nous ce qui vous prend le plus de temps aujourd'hui. Nous revenons vers vous avec une proposition
+          concrète.
+        </p>
+        <div class="mt-8 flex flex-col sm:flex-row items-center justify-center gap-5">
+          <Button
+            variant="primary"
+            class="text-lg px-8 py-4 whitespace-nowrap"
+            href={whatsappLink(WHATSAPP_DEFAULT_MESSAGE)}
+            target="_blank"
+          >
+            Discuter sur WhatsApp
+          </Button>
+          <a
+            href={telLink()}
+            class="font-heading text-plaster text-lg tracking-wider whitespace-nowrap hover:text-accent transition-colors duration-200"
+          >
+            {CONTACT.phoneDisplay}
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
 </Layout>

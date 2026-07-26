@@ -1,0 +1,92 @@
+---
+import { Icon } from 'astro-icon/components';
+
+import type { CallToAction } from '~/types';
+
+/**
+ * The painted price board: services listed the way a Tunisian shop letters its
+ * tariff — name, dotted leader, price plate — not a grid of product cards.
+ * Only quote a figure the agency can honour today (AGENTS.md); « sur devis »
+ * everywhere else.
+ */
+export interface Service {
+  title: string;
+  /** Two or three short capability lines. Generic — never a target business type. */
+  items: Array<string>;
+  price: string;
+  /** True only for the one real starting price; paints the plate ochre. */
+  isStartingPrice?: boolean;
+  callToAction: CallToAction;
+}
+
+export interface Props {
+  id?: string;
+  title: string;
+  subtitle?: string;
+  services: Array<Service>;
+}
+
+const { id, title, subtitle, services = [] } = Astro.props;
+---
+
+<section class="relative not-prose scroll-mt-[72px] grain" {...id ? { id } : {}}>
+  <div class="relative max-w-4xl mx-auto px-5 sm:px-8 py-14 md:py-20">
+    <div class="text-center">
+      <div class="relative">
+        <div class="absolute inset-x-0 top-1/2 h-[2px] bg-ink/60" aria-hidden="true"></div>
+        <h2 class="plaque relative px-5 py-2.5 text-lg md:text-xl">{title}</h2>
+      </div>
+      {subtitle && <p class="mt-5 text-muted max-w-2xl mx-auto text-balance">{subtitle}</p>}
+    </div>
+
+    <div class="filet mt-10 bg-plaster px-5 sm:px-9 py-2 sm:py-4">
+      {
+        services.map(({ title: serviceTitle, items, price, isStartingPrice, callToAction }, index) => (
+          <article
+            class:list={[
+              'py-7 sm:py-8 intersect-once intersect-quarter motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade',
+              { 'border-t-2 border-dashed border-ink/25': index > 0 },
+            ]}
+          >
+            <div class="flex flex-wrap items-baseline gap-x-3 gap-y-2.5">
+              <h3 class="font-heading uppercase text-primary text-xl md:text-2xl leading-tight shrink min-w-0">
+                {serviceTitle}
+              </h3>
+              <div
+                class="hidden sm:block grow border-b-[3px] border-dotted border-ink/40 translate-y-[-0.35em] min-w-6"
+                aria-hidden="true"
+              />
+              <p
+                class:list={[
+                  'plaque shrink-0 px-3 py-1 text-sm md:text-base normal-case tracking-normal font-heading',
+                  isStartingPrice ? 'bg-accent' : '',
+                ]}
+              >
+                {price}
+              </p>
+            </div>
+
+            <ul class="mt-4 space-y-1.5 text-default max-w-2xl">
+              {items.map((item) => (
+                <li class="flex items-start gap-2.5">
+                  <Icon name="tabler:check" class="icon-bold mt-1 h-4 w-4 shrink-0 text-paint-red" />
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+
+            <a
+              class="brush-link inline-flex items-center gap-1.5 mt-4 font-medium text-primary"
+              href={callToAction.href}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Icon name="tabler:brand-whatsapp" class="h-4.5 w-4.5" />
+              {callToAction.text}
+            </a>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>

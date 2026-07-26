@@ -12,6 +12,10 @@
   --color-accent: var(--aw-color-accent);
   --color-default: var(--aw-color-text-default);
   --color-muted: var(--aw-color-text-muted);
+  --color-ink: var(--paint-ink);
+  --color-plaster: var(--paint-plaster);
+  --color-paint-red: var(--paint-red);
+  --color-on-green: var(--paint-on-green);
 
   --font-sans:
     var(--aw-font-sans, ui-sans-serif), ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
@@ -19,12 +23,12 @@
   --font-serif: var(--aw-font-serif, ui-serif), ui-serif, Georgia, Cambria, 'Times New Roman', Times, serif;
   --font-heading: var(--aw-font-heading, ui-sans-serif), ui-sans-serif, system-ui, sans-serif;
 
-  --animate-fade: fadeInUp 1s both;
+  --animate-fade: fadeInUp 0.5s var(--paint-ease, ease-out) both;
 
   @keyframes fadeInUp {
     0% {
       opacity: 0;
-      transform: translateY(2rem);
+      transform: translateY(16px);
     }
     100% {
       opacity: 1;
@@ -33,12 +37,17 @@
   }
 }
 
+/* Cross-page paint: browsers without view transitions navigate instantly. */
+@view-transition {
+  navigation: auto;
+}
+
 @utility bg-page {
   background-color: var(--aw-color-bg-page);
 }
 
 @utility bg-dark {
-  background-color: var(--aw-color-bg-page-dark);
+  background-color: var(--aw-color-primary);
 }
 
 @utility bg-light {
@@ -53,12 +62,46 @@
   color: var(--aw-color-text-muted);
 }
 
+/*
+ * The button hardware of the shop: a painted plate with an offset block
+ * shadow that lifts on hover and presses flat on click. The offset shadow is
+ * native sign-painter grammar (DESIGN.md), not decoration.
+ */
 @utility btn {
-  @apply inline-flex items-center justify-center rounded-full border-gray-400 border bg-transparent font-medium text-center text-base text-page leading-snug transition py-3.5 px-6 md:px-8 ease-in duration-200 focus:ring-blue-500 focus:ring-offset-blue-200 focus:ring-2 focus:ring-offset-2 hover:bg-gray-100 hover:border-gray-600 dark:text-slate-300 dark:border-slate-500 dark:hover:bg-slate-800 dark:hover:border-slate-800 cursor-pointer;
+  @apply inline-flex items-center justify-center font-medium text-center text-base leading-snug py-3 px-6 md:px-7 cursor-pointer;
+  border: 2px solid var(--paint-ink);
+  border-radius: 6px;
+  color: var(--paint-ink);
+  background-color: var(--paint-plaster);
+  box-shadow: 4px 4px 0 var(--paint-ink);
+  transition:
+    transform 150ms var(--paint-ease),
+    box-shadow 150ms var(--paint-ease),
+    background-color 200ms ease;
+
+  &:hover {
+    transform: translate(-1px, -1px);
+    box-shadow: 6px 6px 0 var(--paint-ink);
+  }
+
+  &:active {
+    transform: translate(3px, 3px);
+    box-shadow: 1px 1px 0 var(--paint-ink);
+  }
+
+  &:focus-visible {
+    outline: 3px solid var(--paint-ink);
+    outline-offset: 2px;
+  }
 }
 
 @utility btn-primary {
-  @apply btn font-semibold bg-primary text-white border-primary hover:bg-secondary hover:border-secondary hover:text-white dark:text-white dark:bg-primary dark:border-primary dark:hover:border-secondary dark:hover:bg-secondary;
+  @apply btn font-bold;
+  background-color: var(--aw-color-accent);
+
+  &:hover {
+    background-color: color-mix(in oklab, var(--aw-color-accent) 92%, white);
+  }
 }
 
 @utility btn-secondary {
@@ -66,17 +109,136 @@
 }
 
 @utility btn-tertiary {
-  @apply btn border-none shadow-none text-muted hover:text-gray-900 dark:text-gray-400 dark:hover:text-white;
+  @apply btn shadow-none border-none bg-transparent;
+  box-shadow: none;
+
+  &:hover {
+    transform: none;
+    box-shadow: none;
+    background-color: color-mix(in oklab, var(--paint-ink) 8%, transparent);
+  }
+
+  &:active {
+    transform: none;
+  }
 }
 
-#header.scroll > div:first-child {
-  @apply bg-page md:bg-white/90 md:backdrop-blur-md;
-  box-shadow: 0 0.375rem 1.5rem 0 rgb(140 152 164 / 13%);
+/*
+ * A painted panel: enamel field framed by a double plaster filet.
+ * Pair with a bg colour (defaults to enamel green).
+ */
+@utility panneau {
+  position: relative;
+  background-color: var(--aw-color-primary);
+  color: var(--paint-plaster);
+  box-shadow:
+    inset 0 0 0 6px var(--aw-color-primary),
+    inset 0 0 0 8px color-mix(in srgb, var(--paint-plaster) 75%, transparent),
+    inset 0 0 0 14px var(--aw-color-primary),
+    inset 0 0 0 15px color-mix(in srgb, var(--paint-plaster) 45%, transparent);
 }
-.dark #header.scroll > div:first-child,
-#header.scroll.dark > div:first-child {
-  @apply bg-page md:bg-[#030621e6] border-b border-gray-500/20;
-  box-shadow: none;
+
+/* A label plate screwed to the facade. */
+@utility plaque {
+  display: inline-block;
+  background-color: var(--paint-plaster);
+  color: var(--paint-ink);
+  border: 2px solid var(--paint-ink);
+  box-shadow: 3px 3px 0 color-mix(in srgb, var(--paint-ink) 85%, transparent);
+  font-family: var(--aw-font-heading);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+/* Double-rule board frame on plaster. */
+@utility filet {
+  border: 2px solid var(--paint-ink);
+  outline: 1px solid color-mix(in srgb, var(--paint-ink) 55%, transparent);
+  outline-offset: 3px;
+}
+
+/* Striped shop awning strip. */
+@utility awning {
+  background-image: repeating-linear-gradient(90deg, var(--aw-color-primary) 0 22px, var(--paint-plaster) 22px 44px);
+  border-bottom: 2px solid var(--paint-ink);
+}
+
+/* Painted brush underline that draws itself on hover. */
+@utility brush-link {
+  background-image: linear-gradient(to right, var(--paint-red), var(--paint-red));
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  background-size: 0% 3px;
+  transition: background-size 250ms var(--paint-ease);
+  padding-bottom: 2px;
+
+  &:hover,
+  &:focus-visible {
+    background-size: 100% 3px;
+  }
+}
+
+/* Grain of the lime-washed wall. ~1KB inline; multiply keeps colours honest. */
+@utility grain {
+  position: relative;
+
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.05;
+    mix-blend-mode: multiply;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+}
+
+/* The hero sign's one authored moment (DESIGN.md motion spec). */
+@media (prefers-reduced-motion: no-preference) {
+  .sign-reveal {
+    animation: signWipe 0.7s var(--paint-ease) both;
+  }
+  .sign-reveal-late {
+    animation: signWipe 0.7s var(--paint-ease) 0.25s both;
+  }
+  .rule-draw {
+    animation: ruleDraw 0.6s var(--paint-ease) 0.5s both;
+    transform-origin: left center;
+  }
+  .cta-set {
+    animation: fadeInUp 0.5s var(--paint-ease) 0.75s both;
+  }
+
+  @keyframes signWipe {
+    from {
+      clip-path: inset(0 100% 0 0);
+      opacity: 0.6;
+    }
+    to {
+      clip-path: inset(0 0 0 0);
+      opacity: 1;
+    }
+  }
+
+  @keyframes ruleDraw {
+    from {
+      transform: scaleX(0);
+    }
+    to {
+      transform: scaleX(1);
+    }
+  }
+}
+
+.logo-mark {
+  view-transition-name: logo;
+}
+
+/* The fascia: the header is always a plaster board with a painted rule —
+   never transparent over the green sign (ink links would drown). */
+#header > div:first-child {
+  background-color: var(--paint-plaster);
+  border-bottom: 2px solid var(--paint-ink);
 }
 
 #header.expanded nav {
@@ -86,6 +248,7 @@
   right: 0;
   bottom: 70px !important;
   padding: 0 5px;
+  background-color: var(--paint-plaster);
 }
 
 .dropdown:focus .dropdown-menu,

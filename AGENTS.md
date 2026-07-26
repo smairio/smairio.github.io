@@ -36,6 +36,22 @@ These rules are product requirements, not style preferences:
 Business strategy behind these rules (niches, sales scripts, pricing) lives
 outside this repo in `plans/first-client-plan.md`.
 
+## Design authority
+
+The visual world is **« la devanture peinte »** (hand-painted Tunisian
+storefront), committed 2026-07-26 via the impeccable flow. `DESIGN.md` is the
+design law of this repo (palette, type, component vocabulary, motion, bans);
+`PRODUCT.md` holds product truth; `.impeccable/surfaces/` holds per-surface
+briefs. Read `DESIGN.md` before any visual change. Highlights agents keep
+getting wrong elsewhere:
+
+- Light theme only (`ui.theme: light:only`) — no dark mode, ever.
+- No blue, no purple, no gradients-as-decoration, no glassmorphism.
+- Fonts: Archivo Black (display) + Archivo Variable (body). Nothing else.
+- Photography ships only through the duotone pipeline (`scripts/duotone.mjs`).
+- The offset block shadow and filet borders are native world grammar here,
+  not slop findings.
+
 ## Quick Reference
 
 | Command           | Purpose                             |
@@ -58,7 +74,7 @@ src/
   components/
     common/        # Shared: Image, Metadata, Analytics, ToggleTheme
     ui/            # Primitives: Button, Headline, WidgetWrapper, ItemGrid
-    widgets/       # Page sections: Hero, Features, ServicePillars, DemoGallery, Header, Footer
+    widgets/       # Page sections: SignHero, PriceBoard, DemoGallery, TrustBoard, StreetBand, Header, Footer
     blog/          # Blog: SinglePost, List, Pagination, Tags
     CustomStyles.astro  # CSS variables for colors and fonts
   content.config.ts    # Content Collections schema (Astro v6 location)

@@ -20,13 +20,22 @@ Node.js >= 22.12.0 requis.
 
 ## Où modifier quoi
 
-| Quoi                                 | Fichier                 |
-| ------------------------------------ | ----------------------- |
-| Téléphone, WhatsApp, e-mail          | `src/contact.ts`        |
-| Menu, pied de page                   | `src/navigation.ts`     |
-| Nom du site, métadonnées SEO, langue | `src/config.yaml`       |
-| Contenu de la page d'accueil         | `src/pages/index.astro` |
-| Articles de blog                     | `src/data/post/`        |
+| Quoi                                 | Fichier                             |
+| ------------------------------------ | ----------------------------------- |
+| Téléphone, WhatsApp, e-mail          | `src/contact.ts`                    |
+| Menu, pied de page                   | `src/navigation.ts`                 |
+| Nom du site, métadonnées SEO, langue | `src/config.yaml`                   |
+| Contenu de la page d'accueil         | `src/pages/index.astro`             |
+| Démonstrations (cartes « vitrines ») | `src/data/demos.ts`                 |
+| Couleurs et polices (peintures)      | `src/components/CustomStyles.astro` |
+| Articles de blog                     | `src/data/post/`                    |
+| Image de partage (Open Graph)        | `npm run og:image`                  |
+
+Le monde visuel — « la devanture peinte » — est documenté dans `DESIGN.md`
+(les faits produit dans `PRODUCT.md`). À lire avant toute modification
+visuelle : la palette, les composants (`panneau`, `plaque`, `filet`,
+`vitrine`) et les interdits y sont fixés. Les photos ne s'ajoutent que
+traitées en duotone : `node scripts/duotone.mjs <in> <out>`.
 
 ## Base technique
 

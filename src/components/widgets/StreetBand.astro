@@ -1,0 +1,37 @@
+---
+import Image from '~/components/common/Image.astro';
+
+import rueSouk from '~/assets/images/rue-souk.jpg';
+
+/**
+ * A full-bleed breath between boards: the real street this site talks to,
+ * treated in the site's green duotone (scripts/duotone.mjs) so the photo is
+ * painted into the world rather than pasted on it. Photo: Tunis medina souk,
+ * Chermiti Mohamed via Unsplash (free license).
+ */
+export interface Props {
+  claim: string;
+}
+
+const { claim } = Astro.props;
+---
+
+<section class="relative not-prose border-y-2 border-ink" aria-label="La rue tunisienne">
+  <Image
+    src={rueSouk}
+    alt="Une rue commerçante de la médina de Tunis, boutiques ouvertes des deux côtés"
+    class="w-full object-cover h-[46vh] min-h-[300px] max-h-[460px]"
+    widths={[640, 1024, 1800]}
+    sizes="100vw"
+    width={1800}
+    height={1197}
+    format="webp"
+    loading="lazy"
+  />
+  <div class="absolute inset-0 bg-gradient-to-t from-ink/55 via-ink/10 to-transparent" aria-hidden="true"></div>
+  <p
+    class="absolute bottom-6 md:bottom-10 left-1/2 -translate-x-1/2 w-[92%] max-w-3xl text-center font-heading uppercase text-plaster text-xl md:text-3xl leading-snug text-balance [text-shadow:2px_2px_0_var(--paint-ink)]"
+  >
+    {claim}
+  </p>
+</section>

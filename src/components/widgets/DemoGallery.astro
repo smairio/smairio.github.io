@@ -2,88 +2,99 @@
 import { Icon } from 'astro-icon/components';
 
 import Image from '~/components/common/Image.astro';
-import Headline from '~/components/ui/Headline.astro';
-import WidgetWrapper from '~/components/ui/WidgetWrapper.astro';
 
 import type { Demo } from '~/data/demos';
-import type { Widget } from '~/types';
 
-export interface Props extends Widget {
-  title?: string;
+/**
+ * « La rue » : each demo is a mini-storefront — striped awning, a window
+ * where the demo's own painted sign is the artwork (typography, not icons),
+ * and an honest « En construction » tag until the real screenshot exists.
+ * Sign treatments cycle so the row reads as a street of different shops
+ * inside one grammar.
+ */
+export interface Props {
+  id?: string;
+  title: string;
   subtitle?: string;
-  tagline?: string;
   demos?: Array<Demo>;
 }
 
-const {
-  title = await Astro.slots.render('title'),
-  subtitle = await Astro.slots.render('subtitle'),
-  tagline,
-  demos = [],
+const { id, title, subtitle, demos = [] } = Astro.props;
 
-  id,
-  isDark = false,
-  classes = {},
-  bg = await Astro.slots.render('bg'),
-} = Astro.props;
+const signTreatments = [
+  'text-primary',
+  'text-plaster bg-primary px-3 py-1 [box-shadow:3px_3px_0_var(--paint-ink)]',
+  'text-ink underline decoration-[3px] decoration-[var(--paint-red)] underline-offset-4',
+] as const;
 ---
 
-<WidgetWrapper id={id} isDark={isDark} containerClass={`max-w-6xl ${classes?.container ?? ''}`} bg={bg}>
-  <Headline title={title} subtitle={subtitle} tagline={tagline} classes={classes?.headline as Record<string, string>} />
+<section class="relative not-prose scroll-mt-[72px]" {...id ? { id } : {}}>
+  <div class="relative max-w-6xl mx-auto px-5 sm:px-8 py-14 md:py-20">
+    <div class="text-center">
+      <div class="relative">
+        <div class="absolute inset-x-0 top-1/2 h-[2px] bg-ink/60" aria-hidden="true"></div>
+        <h2 class="plaque relative px-5 py-2.5 text-lg md:text-xl">{title}</h2>
+      </div>
+      {subtitle && <p class="mt-5 text-muted max-w-3xl mx-auto text-balance">{subtitle}</p>}
+    </div>
 
-  {
-    demos.length > 0 && (
-      <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        {demos.map(({ title: demoTitle, shows, icon, image, href }) => (
-          <article class="flex h-full flex-col overflow-hidden rounded-lg border border-gray-200 bg-white shadow-sm dark:border-gray-700 dark:bg-slate-900 intersect-once motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade">
-            {/* Finished demos show their screenshot; unfinished ones show an icon, never a stock photo. */}
+    <div class="mt-10 grid gap-x-6 gap-y-9 sm:grid-cols-2 lg:grid-cols-3">
+      {
+        demos.map(({ title: demoTitle, shows, image, href }, index) => (
+          <article class="flex h-full flex-col border-2 border-ink bg-plaster [box-shadow:4px_4px_0_var(--paint-ink)] intersect-once intersect-quarter motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade">
+            <div class="awning h-5" aria-hidden="true" />
+
             {image ? (
               <Image
                 src={image}
                 alt={`Aperçu de la démonstration : ${demoTitle}`}
-                class="aspect-video w-full object-cover"
+                class="aspect-[16/10] w-full object-cover border-b-2 border-ink"
                 widths={[400, 768]}
                 sizes="(max-width: 639px) 100vw, (max-width: 1023px) 50vw, 33vw"
                 width={768}
-                height={432}
+                height={480}
                 format="webp"
                 loading="lazy"
               />
             ) : (
-              <div class="flex aspect-video w-full items-center justify-center bg-gray-100 dark:bg-slate-800">
-                <Icon name={icon} class="h-10 w-10 text-gray-400 dark:text-slate-500" />
+              <div class="grain relative flex aspect-[16/10] w-full items-center justify-center border-b-2 border-ink bg-plaster px-4">
+                {/* The painted sign in the window IS the card's heading. */}
+                <h3
+                  class:list={[
+                    'font-heading uppercase text-center leading-tight text-balance text-[clamp(1.15rem,2.1vw,1.5rem)]',
+                    signTreatments[index % signTreatments.length],
+                  ]}
+                >
+                  {demoTitle}
+                </h3>
+                <p class="absolute bottom-3 left-1/2 -translate-x-1/2 -rotate-2 whitespace-nowrap border-2 border-[var(--paint-red)] px-2 py-0.5 font-heading text-[0.78rem] uppercase tracking-[0.1em] text-paint-red">
+                  En construction
+                </p>
               </div>
             )}
 
             <div class="flex flex-1 flex-col p-5">
-              <p class="text-xs font-bold uppercase tracking-wide text-secondary dark:text-blue-200">
+              <p class="font-heading text-[0.78rem] uppercase tracking-[0.12em] text-paint-red">
                 Projet de démonstration
               </p>
-              <h3 class="mt-2 text-lg font-bold leading-tight">{demoTitle}</h3>
-              <p class="mt-2 flex-1 text-sm text-muted">{shows}</p>
+              {image && <h3 class="mt-1.5 font-heading text-lg leading-tight">{demoTitle}</h3>}
+              <p class="mt-2 flex-1 text-[0.95rem] text-muted">{shows}</p>
 
-              <div class="mt-4">
-                {href ? (
-                  <a
-                    class="inline-flex items-center gap-1 font-medium text-primary hover:underline"
-                    href={href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    Voir la démonstration
-                    <Icon name="tabler:external-link" class="h-4 w-4" />
-                  </a>
-                ) : (
-                  <span class="inline-flex items-center gap-1.5 text-sm text-muted">
-                    <Icon name="tabler:tool" class="h-4 w-4" />
-                    En construction
-                  </span>
-                )}
-              </div>
+              {href && (
+                <a
+                  class="brush-link mt-4 inline-flex items-center gap-1.5 self-start font-medium text-primary"
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Voir la démonstration
+                  <Icon name="tabler:arrow-right" class="h-4 w-4" />
+                </a>
+              )}
             </div>
           </article>
-        ))}
-      </div>
-    )
-  }
-</WidgetWrapper>
+        ))
+      }
+    </div>
+  </div>
+</section>

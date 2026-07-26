@@ -7,7 +7,7 @@ export const headerData: { links: Array<{ text: string; href: string }>; actions
   links: [
     { text: 'Services', href: getPermalink('/#services') },
     { text: 'Réalisations', href: getPermalink('/#realisations') },
-    { text: 'Pourquoi nous', href: getPermalink('/#confiance') },
+    { text: 'Engagements', href: getPermalink('/#confiance') },
     { text: 'Blog', href: getBlogPermalink() },
   ],
   actions: [
@@ -30,20 +30,20 @@ export const headerData: { links: Array<{ text: string; href: string }>; actions
 export const footerData = {
   links: [
     {
-      title: 'Services',
+      title: 'La boutique',
       links: [
-        { text: 'Sites web & applications mobiles', href: getPermalink('/#services') },
-        { text: 'Outils de gestion sur mesure', href: getPermalink('/#services') },
-        { text: 'Digitalisation & IA', href: getPermalink('/#services') },
-        { text: 'Cloud & hébergement', href: getPermalink('/#services') },
+        { text: 'Nos services', href: getPermalink('/#services') },
+        { text: 'Nos démonstrations', href: getPermalink('/#realisations') },
+        { text: 'Nos engagements', href: getPermalink('/#confiance') },
+        { text: 'Le blog', href: getBlogPermalink() },
       ],
     },
     {
       title: 'Contact',
       links: [
         { text: CONTACT.phoneDisplay, href: telLink() },
-        { text: 'WhatsApp', href: whatsappLink(WHATSAPP_DEFAULT_MESSAGE) },
-        // The address is withheld until the mailbox exists — see CONTACT.isEmailLive.
+        { text: 'WhatsApp', href: whatsappLink(WHATSAPP_DEFAULT_MESSAGE), target: '_blank' },
+        // The email joins once the mailbox exists — see CONTACT.isEmailLive.
         ...(CONTACT.isEmailLive ? [{ text: CONTACT.email, href: `mailto:${CONTACT.email}` }] : []),
       ],
     },
@@ -55,4 +55,9 @@ export const footerData = {
   // abandoned agency, which is the opposite of what this site is for.
   socialLinks: [{ ariaLabel: 'RSS', icon: 'tabler:rss', href: getAsset('/rss.xml') }],
   footNote: `© ${new Date().getFullYear()} LamdaSoft · Tous droits réservés.`,
+  bigContact: {
+    label: CONTACT.phoneDisplay,
+    href: telLink(),
+    note: 'Appelez-nous ou écrivez-nous sur WhatsApp — réponse rapide.',
+  },
 };

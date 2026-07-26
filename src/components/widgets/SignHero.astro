@@ -1,0 +1,71 @@
+---
+import { Icon } from 'astro-icon/components';
+
+import Button from '~/components/ui/Button.astro';
+
+import { CONTACT, WHATSAPP_DEFAULT_MESSAGE, telLink, whatsappLink } from '~/contact';
+
+/**
+ * The shop's main sign: the first viewport of « la devanture peinte ».
+ * Enamel-green panel, slab lettering with an ink offset, the painted
+ * trade-list between two drawn rules, one ochre CTA plate. This section owns
+ * the page's single authored motion moment (sign-reveal classes, DESIGN.md).
+ */
+const trades = ['Sites web', 'Applications', 'Gestion', 'IA', 'Cloud'];
+---
+
+<section class="panneau grain relative not-prose">
+  <div class="relative max-w-5xl mx-auto px-5 sm:px-8 pt-14 md:pt-24 pb-16 md:pb-24 text-center">
+    <p class="plaque sign-reveal text-[0.7rem] md:text-xs px-3 py-1.5">Agence digitale · Toute la Tunisie</p>
+
+    <h1
+      class="sign-reveal mt-8 md:mt-10 font-heading uppercase leading-[0.95] tracking-[-0.01em] text-[clamp(3.1rem,10.5vw,6rem)] text-plaster [text-shadow:0.045em_0.045em_0_var(--paint-ink)]"
+    >
+      Digitalisez<br />
+      <span class="text-accent">votre commerce</span>
+    </h1>
+
+    <div class="sign-reveal-late mt-8 md:mt-10 mx-auto max-w-2xl">
+      <div class="rule-draw h-[2px] bg-on-green/70"></div>
+      <p class="my-3 font-heading uppercase text-on-green text-[0.72rem] md:text-sm tracking-[0.14em]">
+        {
+          trades.map((t, i) => (
+            <>
+              {i > 0 && (
+                <span class="text-accent px-1.5 md:px-2.5" aria-hidden="true">
+                  ◆
+                </span>
+              )}
+              <span class="whitespace-nowrap">{t}</span>
+            </>
+          ))
+        }
+      </p>
+      <div class="rule-draw h-[2px] bg-on-green/70"></div>
+    </div>
+
+    <p class="sign-reveal-late mt-8 text-lg md:text-xl text-on-green max-w-2xl mx-auto text-balance">
+      Le carnet de rendez-vous, les classeurs, les devis perdus dans les messages&nbsp;: nous les remplaçons par des
+      outils simples, faits pour votre activité.
+    </p>
+
+    <div class="cta-set mt-10 flex flex-col sm:flex-row items-center justify-center gap-5">
+      <Button
+        variant="primary"
+        class="text-lg px-8 py-4 whitespace-nowrap"
+        href={whatsappLink(WHATSAPP_DEFAULT_MESSAGE)}
+        target="_blank"
+      >
+        <Icon name="tabler:brand-whatsapp" class="w-6 h-6 mr-2 -ml-1 shrink-0" />
+        Discuter sur WhatsApp
+      </Button>
+      <a
+        href={telLink()}
+        class="font-heading text-plaster text-lg md:text-xl tracking-wider whitespace-nowrap hover:text-accent transition-colors duration-200"
+      >
+        {CONTACT.phoneDisplay}
+      </a>
+    </div>
+    <p class="cta-set mt-4 text-sm text-on-green/90">Réponse rapide, sans engagement.</p>
+  </div>
+</section>

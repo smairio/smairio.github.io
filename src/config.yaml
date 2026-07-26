@@ -67,5 +67,6 @@ analytics:
     googleAnalytics:
       id: null # or "G-XXXXXXXXXX"
 
+# The devanture world is daylight commerce — there is no night register (DESIGN.md).
 ui:
-  theme: 'system' # Values: "system" | "light" | "dark" | "light:only" | "dark:only"
+  theme: 'light:only'
