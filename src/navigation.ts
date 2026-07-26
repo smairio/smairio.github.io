@@ -1,6 +1,6 @@
 import type { CallToAction } from './types';
 
-import { CONTACT, WHATSAPP_DEFAULT_MESSAGE, whatsappLink } from './contact';
+import { CONTACT, WHATSAPP_DEFAULT_MESSAGE, telLink, whatsappLink } from './contact';
 import { getAsset, getBlogPermalink, getPermalink } from './utils/permalinks';
 
 export const headerData: { links: Array<{ text: string; href: string }>; actions: Array<CallToAction> } = {
@@ -14,7 +14,7 @@ export const headerData: { links: Array<{ text: string; href: string }>; actions
     {
       variant: 'tertiary',
       text: CONTACT.phoneDisplay,
-      href: `tel:${CONTACT.phone}`,
+      href: telLink(),
       icon: 'tabler:phone',
     },
     {
@@ -41,9 +41,10 @@ export const footerData = {
     {
       title: 'Contact',
       links: [
-        { text: CONTACT.phoneDisplay, href: `tel:${CONTACT.phone}` },
+        { text: CONTACT.phoneDisplay, href: telLink() },
         { text: 'WhatsApp', href: whatsappLink(WHATSAPP_DEFAULT_MESSAGE) },
-        { text: CONTACT.email, href: `mailto:${CONTACT.email}` },
+        // The address is withheld until the mailbox exists — see CONTACT.isEmailLive.
+        ...(CONTACT.isEmailLive ? [{ text: CONTACT.email, href: `mailto:${CONTACT.email}` }] : []),
       ],
     },
   ],

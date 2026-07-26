@@ -43,7 +43,9 @@ const metadata = {
 
 ## Available Widget Components
 
-Hero, Features, Content, Steps, Testimonials, FAQs, Stats, Pricing, Brands, CallToAction, Contact, Team
+Hero, Features, Content, Steps, Testimonials, FAQs, Stats, Brands, CallToAction, Team, ServicePillars, DemoGallery
+
+No contact-form widget: AGENTS.md rule 6 makes WhatsApp the only conversion path.
 
 ## Notes
 

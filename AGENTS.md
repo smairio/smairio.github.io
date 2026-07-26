@@ -58,19 +58,26 @@ src/
   components/
     common/        # Shared: Image, Metadata, Analytics, ToggleTheme
     ui/            # Primitives: Button, Headline, WidgetWrapper, ItemGrid
-    widgets/       # Page sections: Hero, Features, Pricing, Header, Footer
+    widgets/       # Page sections: Hero, Features, ServicePillars, DemoGallery, Header, Footer
     blog/          # Blog: SinglePost, List, Pagination, Tags
     CustomStyles.astro  # CSS variables for colors and fonts
   content.config.ts    # Content Collections schema (Astro v6 location)
-  data/post/           # Blog posts (.md, .mdx)
+  contact.ts           # Phone, WhatsApp, email — the ONLY place these live (rule 6)
+  data/demos.ts        # The demonstration projects shown in « Réalisations »
+  data/post/           # Blog posts (.md, .mdx) — empty by design, no placeholders
   layouts/             # Layout.astro, PageLayout.astro, MarkdownLayout.astro
   pages/               # File-based routing
   utils/               # blog.ts, images.ts, permalinks.ts, frontmatter.ts
   config.yaml          # Site configuration (loaded as virtual module)
   navigation.ts        # Navigation structure
   types.d.ts           # TypeScript type definitions
+scripts/               # generate-og-image.mjs — rebuilds the Open Graph preview
 vendor/integration/    # Custom Astro integration for config loading
 ```
+
+There is deliberately no contact-form widget and no `ui/Form.astro`: rule 6 makes
+WhatsApp the only conversion path, so both were deleted rather than left as a
+tempting import.
 
 ### Path Aliases
 
