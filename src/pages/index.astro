@@ -1,11 +1,14 @@
 ---
 import Layout from '~/layouts/PageLayout.astro';
 
+import CallToAction from '~/components/widgets/CallToAction.astro';
 import DemoGallery from '~/components/widgets/DemoGallery.astro';
+import Features from '~/components/widgets/Features.astro';
 import Hero from '~/components/widgets/Hero.astro';
 import ServicePillars from '~/components/widgets/ServicePillars.astro';
+import Testimonials from '~/components/widgets/Testimonials.astro';
 
-import { whatsappLink } from '~/contact';
+import { CONTACT, whatsappLink } from '~/contact';
 import { demos } from '~/data/demos';
 
 /** One WhatsApp opener per pillar, so an incoming message says which one it came from. */
@@ -104,5 +107,64 @@ const metadata = {
     subtitle="Nous construisons ces projets pour montrer concrètement ce que nous savons faire. Ce sont des démonstrations, pas des projets clients : nous ne présenterons jamais le travail d’un autre comme le nôtre."
     demos={demos}
   />
-  <!-- TODO(#6): section confiance — garanties (id="confiance") -->
+  <Features
+    id="confiance"
+    tagline="Confiance"
+    title="Le risque est de notre côté, pas du vôtre"
+    subtitle="Nous démarrons, et c’est justement pour ça que nous donnons le maximum : votre projet sera notre vitrine. Voilà ce que nous garantissons par écrit."
+    columns={2}
+    items={[
+      {
+        title: 'Vous ne payez pas un travail qui ne vous convient pas',
+        description: 'La moitié à la commande, la moitié à la livraison — et seulement si le résultat vous convient.',
+        icon: 'tabler:shield-check',
+      },
+      {
+        title: 'Un accord écrit avant de commencer',
+        description:
+          'Une page : ce qui est inclus, le prix, la date de livraison. Vous savez exactement ce que vous achetez.',
+        icon: 'tabler:writing-sign',
+      },
+      {
+        title: 'On commence petit',
+        description: 'Un premier projet simple, livré vite et bien. Vous jugez sur pièce avant d’aller plus loin.',
+        icon: 'tabler:stairs-up',
+      },
+      {
+        title: 'On reste joignables',
+        description: 'Sur WhatsApp, rapidement — pendant le projet comme après la livraison.',
+        icon: 'tabler:message-circle',
+      },
+    ]}
+  />
+
+  <Testimonials
+    title="Avis clients — à venir"
+    subtitle="Nous venons de démarrer : cette section est vide. Les premiers avis seront publiés ici avec le nom de leurs auteurs et leur accord."
+    testimonials={[]}
+  />
+
+  <CallToAction
+    actions={[
+      {
+        variant: 'primary',
+        text: 'Discuter sur WhatsApp',
+        href: whatsappLink('Bonjour, je souhaite digitaliser mon entreprise.'),
+        target: '_blank',
+        icon: 'tabler:brand-whatsapp',
+      },
+      {
+        variant: 'tertiary',
+        text: CONTACT.phoneDisplay,
+        href: `tel:${CONTACT.phone}`,
+        icon: 'tabler:phone',
+      },
+    ]}
+  >
+    <Fragment slot="title">Parlons de votre projet</Fragment>
+
+    <Fragment slot="subtitle">
+      Dites-nous ce qui vous prend le plus de temps aujourd’hui. Nous revenons vers vous avec une proposition concrète.
+    </Fragment>
+  </CallToAction>
 </Layout>
