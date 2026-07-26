@@ -1,10 +1,12 @@
 ---
 import Layout from '~/layouts/PageLayout.astro';
 
+import DemoGallery from '~/components/widgets/DemoGallery.astro';
 import Hero from '~/components/widgets/Hero.astro';
 import ServicePillars from '~/components/widgets/ServicePillars.astro';
 
 import { whatsappLink } from '~/contact';
+import { demos } from '~/data/demos';
 
 /** One WhatsApp opener per pillar, so an incoming message says which one it came from. */
 const pillarCta = (subject: string) => ({
@@ -95,6 +97,12 @@ const metadata = {
     ]}
   />
 
-  <!-- TODO(#5): section réalisations — démonstrations (id="realisations") -->
+  <DemoGallery
+    id="realisations"
+    tagline="Réalisations"
+    title="Nos démonstrations"
+    subtitle="Nous construisons ces projets pour montrer concrètement ce que nous savons faire. Ce sont des démonstrations, pas des projets clients : nous ne présenterons jamais le travail d’un autre comme le nôtre."
+    demos={demos}
+  />
   <!-- TODO(#6): section confiance — garanties (id="confiance") -->
 </Layout>

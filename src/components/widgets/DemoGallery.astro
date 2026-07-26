@@ -1,0 +1,89 @@
+---
+import { Icon } from 'astro-icon/components';
+
+import Image from '~/components/common/Image.astro';
+import Headline from '~/components/ui/Headline.astro';
+import WidgetWrapper from '~/components/ui/WidgetWrapper.astro';
+
+import type { Demo } from '~/data/demos';
+import type { Widget } from '~/types';
+
+export interface Props extends Widget {
+  title?: string;
+  subtitle?: string;
+  tagline?: string;
+  demos?: Array<Demo>;
+}
+
+const {
+  title = await Astro.slots.render('title'),
+  subtitle = await Astro.slots.render('subtitle'),
+  tagline,
+  demos = [],
+
+  id,
+  isDark = false,
+  classes = {},
+  bg = await Astro.slots.render('bg'),
+} = Astro.props;
+---
+
+<WidgetWrapper id={id} isDark={isDark} containerClass={`max-w-6xl ${classes?.container ?? ''}`} bg={bg}>
+  <Headline title={title} subtitle={subtitle} tagline={tagline} />
+
+  {
+    demos.length > 0 && (
+      <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {demos.map(({ title: demoTitle, shows, icon, image, href }) => (
+          <article class="flex h-full flex-col overflow-hidden rounded-lg border border-gray-200 bg-white shadow-sm dark:border-gray-700 dark:bg-slate-900 intersect-once motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade">
+            {/* Finished demos show their screenshot; unfinished ones show an icon, never a stock photo. */}
+            {image ? (
+              <Image
+                src={image}
+                alt={`Aperçu de la démonstration : ${demoTitle}`}
+                class="aspect-video w-full object-cover"
+                widths={[400, 768]}
+                sizes="(max-width: 639px) 100vw, (max-width: 1023px) 50vw, 33vw"
+                width={768}
+                height={432}
+                format="webp"
+                loading="lazy"
+              />
+            ) : (
+              <div class="flex aspect-video w-full items-center justify-center bg-gray-100 dark:bg-slate-800">
+                <Icon name={icon} class="h-10 w-10 text-gray-400 dark:text-slate-500" />
+              </div>
+            )}
+
+            <div class="flex flex-1 flex-col p-5">
+              <p class="text-xs font-bold uppercase tracking-wide text-secondary dark:text-blue-200">
+                Projet de démonstration
+              </p>
+              <h3 class="mt-2 text-lg font-bold leading-tight">{demoTitle}</h3>
+              <p class="mt-2 flex-1 text-sm text-muted">{shows}</p>
+
+              <div class="mt-4">
+                {href ? (
+                  <a
+                    class="inline-flex items-center gap-1 font-medium text-primary hover:underline"
+                    href={href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Voir la démonstration
+                    <Icon name="tabler:external-link" class="h-4 w-4" />
+                  </a>
+                ) : (
+                  <span class="inline-flex items-center gap-1.5 text-sm text-muted">
+                    <Icon name="tabler:tool" class="h-4 w-4" />
+                    En construction
+                  </span>
+                )}
+              </div>
+            </div>
+          </article>
+        ))}
+      </div>
+    )
+  }
+</WidgetWrapper>

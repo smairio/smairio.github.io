@@ -25,8 +25,11 @@ These rules are product requirements, not style preferences:
    is « Déploiement cloud, avec option d'hébergement de vos données en Tunisie ».
    Do not write « conforme », INPDP, or any certification the agency lacks.
 4. **French only.** Arabic and English come later; don't add locales unprompted.
-5. **Services stay generic.** Describe capabilities, never name a target
-   business type (no "pour avocats", "pour agences de location").
+5. **Services stay generic, proof stays concrete.** The services section
+   describes capabilities and never names a target business type (no "pour
+   avocats", "pour agences de location"). Demo cards are the deliberate
+   exception: a demo names the trade it was built for, because it is evidence
+   of a real build rather than an offer.
 6. **WhatsApp is the only conversion path.** Every CTA opens `wa.me`. No contact
    forms. Numbers and addresses live in `src/contact.ts` — nowhere else.
 
